@@ -1,0 +1,9 @@
+sd.c:12:9:SD_ReceiveByte	24	static
+sd.c:22:9:SD_SendCommand	32	static
+sd.c:61:6:Deselect	8	static
+sd.c:68:6:Select	8	static
+sd.c:75:9:SD_Init	32	static
+sd.c:122:9:SD_RxDataBlock	40	static
+sd.c:153:9:SD_Read	32	static
+sd.c:194:9:SD_TxDataBlock	32	static
+sd.c:227:9:SD_Write	40	static
