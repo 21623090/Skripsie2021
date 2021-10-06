@@ -26,6 +26,8 @@
 #include "LiquidCrystal.h"
 #include "stdio.h"
 #include "stm32f4xx_hal.h"
+#include "fatfs_sd.h"
+#include "string.h"
 #include "sd.h"
 #include "inttypes.h"
 /* USER CODE END Includes */
