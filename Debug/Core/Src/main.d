@@ -36,7 +36,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Middlewares/Third_Party/FatFs/src/ff_gen_drv.h \
  ../Middlewares/Third_Party/FatFs/src/diskio.h \
  ../Middlewares/Third_Party/FatFs/src/ff.h ../FATFS/Target/user_diskio.h \
- ../Core/Inc/LiquidCrystal.h ../Core/Inc/fatfs_sd.h ../Core/Inc/sd.h
+ ../Core/Inc/LiquidCrystal.h ../Core/Inc/fatfs_sd.h
 
 ../Core/Inc/main.h:
 
@@ -123,5 +123,3 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Core/Inc/LiquidCrystal.h:
 
 ../Core/Inc/fatfs_sd.h:
-
-../Core/Inc/sd.h:

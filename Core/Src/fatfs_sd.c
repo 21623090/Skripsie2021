@@ -3,11 +3,10 @@
 #define bool BYTE
 
 #include "stm32f4xx_hal.h"
-
 #include "diskio.h"
 #include "fatfs_sd.h"
 
-uint16_t Timer1, Timer2;					/* 1ms Timer Counter */
+extern volatile uint16_t Timer1, Timer2;					/* 10ms Timer decreasing every time */
 
 static volatile DSTATUS Stat = STA_NOINIT;	/* Disk Status */
 static uint8_t CardType;                    /* Type 0:MMC, 1:SDC, 2:Block addressing */
@@ -17,14 +16,14 @@ static uint8_t PowerFlag = 0;				/* Power flag */
  * SPI functions
  **************************************/
 
-/* slave select */
+/* SPI chip select */
 static void SELECT(void)
 {
 	HAL_GPIO_WritePin(SD_CS_PORT, SD_CS_PIN, GPIO_PIN_RESET);
 	HAL_Delay(1);
 }
 
-/* slave deselect */
+/* SPI chip deselect */
 static void DESELECT(void)
 {
 	HAL_GPIO_WritePin(SD_CS_PORT, SD_CS_PIN, GPIO_PIN_SET);

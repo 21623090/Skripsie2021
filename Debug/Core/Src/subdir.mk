@@ -8,7 +8,6 @@ C_SRCS += \
 ../Core/Src/LiquidCrystal.c \
 ../Core/Src/fatfs_sd.c \
 ../Core/Src/main.c \
-../Core/Src/sd.c \
 ../Core/Src/stm32f4xx_hal_msp.c \
 ../Core/Src/stm32f4xx_it.c \
 ../Core/Src/syscalls.c \
@@ -19,7 +18,6 @@ OBJS += \
 ./Core/Src/LiquidCrystal.o \
 ./Core/Src/fatfs_sd.o \
 ./Core/Src/main.o \
-./Core/Src/sd.o \
 ./Core/Src/stm32f4xx_hal_msp.o \
 ./Core/Src/stm32f4xx_it.o \
 ./Core/Src/syscalls.o \
@@ -30,7 +28,6 @@ C_DEPS += \
 ./Core/Src/LiquidCrystal.d \
 ./Core/Src/fatfs_sd.d \
 ./Core/Src/main.d \
-./Core/Src/sd.d \
 ./Core/Src/stm32f4xx_hal_msp.d \
 ./Core/Src/stm32f4xx_it.d \
 ./Core/Src/syscalls.d \

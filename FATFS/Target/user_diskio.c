@@ -37,7 +37,6 @@
 #include <string.h>
 #include "ff_gen_drv.h"
 
-#include "sd.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -84,11 +83,7 @@ DSTATUS USER_initialize (
 )
 {
   /* USER CODE BEGIN INIT */
-	if (SD_Init() == 1)
-		Stat = 0;
-	else
-		STA_NOINIT;
-	return Stat;
+	return SD_disk_initialize(pdrv);
   /* USER CODE END INIT */
 }
 
@@ -102,7 +97,7 @@ DSTATUS USER_status (
 )
 {
   /* USER CODE BEGIN STATUS */
-	return Stat;
+	return SD_disk_status(pdrv);
   /* USER CODE END STATUS */
 }
 
@@ -122,10 +117,7 @@ DRESULT USER_read (
 )
 {
   /* USER CODE BEGIN READ */
-	if (SD_Read(buff, sector*512, count) == 1)
-		return RES_OK;
-	else
-		return RES_ERROR;
+	return SD_disk_read(pdrv, buff, sector, count);
   /* USER CODE END READ */
 }
 
@@ -147,10 +139,7 @@ DRESULT USER_write (
 {
   /* USER CODE BEGIN WRITE */
 	/* USER CODE HERE */
-	if (SD_Write(buff, sector*512, count) == 1)
-		return RES_OK;
-	else
-		return RES_ERROR;
+	return SD_disk_write(pdrv, buff, sector, count);
   /* USER CODE END WRITE */
 }
 #endif /* _USE_WRITE == 1 */
@@ -170,73 +159,7 @@ DRESULT USER_ioctl (
 )
 {
   /* USER CODE BEGIN IOCTL */
-	DRESULT res = RES_ERROR;
-	uint8_t* ptr = buff;
-	switch (cmd)
-	{
-	/* Generic command (Used by FatFs) */
-	case CTRL_SYNC : /* Complete pending write process (needed at _FS_READONLY == 0) */
-		res =  RES_OK;
-		break;
-	case GET_SECTOR_COUNT : /* Get media size (needed at _USE_MKFS == 1) */
-		*(unsigned long*) buff = 8388608; // 2^32 / 512
-		res =  RES_OK;
-		break;
-	case GET_SECTOR_SIZE : /* Get sector size (needed at _MAX_SS != _MIN_SS) */
-		*(unsigned short*) buff = 512;
-		res =  RES_OK;
-		break;
-	case GET_BLOCK_SIZE : /* Get erase block size (needed at _USE_MKFS == 1) */
-		*(unsigned short*) buff = 0;
-		res =  RES_OK;
-		break;
-	case CTRL_TRIM : /* Inform device that the data on the block of sectors is no longer used (needed at _USE_TRIM == 1) */
-		res =  RES_OK;
-		break;
-
-		/* Generic command (Not used by FatFs) */
-	case CTRL_POWER : /* Get/Set power status */
-		res =  RES_OK;
-		break;
-	case CTRL_LOCK : /* Lock/Unlock media removal */
-		res =  RES_OK;
-		break;
-	case CTRL_EJECT : /* Eject media */
-		res =  RES_OK;
-		break;
-	case CTRL_FORMAT : /* Create physical format on the media */
-		res =  RES_OK;
-		break;
-
-		/* MMC/SDC specific iotcl command */
-	case MMC_GET_TYPE : /* Get card type */
-		break;
-	case MMC_GET_CSD : /* Get CSD */
-		/* SEND_CSD */
-		if (SD_SendCommand(9, 0) == 0 && SD_RxDataBlock((unsigned char*)buff)) res = RES_OK;
-		break;
-	case MMC_GET_CID : /* Get CID */
-		/* SEND_CID */
-		if (SD_SendCommand(10, 0) == 0 && SD_RxDataBlock((unsigned char*)buff)) res = RES_OK;
-		break;
-	case MMC_GET_OCR : /* Get OCR */
-		/* READ_OCR */
-		if (SD_SendCommand(58, 0) == 0)
-		{
-			for (int n = 0; n < 4; n++)
-			{
-				*ptr++ = SD_ReceiveByte();
-			}
-			res = RES_OK;
-		}
-		break;
-	case MMC_GET_SDSTAT : /* Get SD status */
-		*(unsigned char*)buff = Stat;
-		res = RES_OK;
-		break;
-
-	}
-	return res;
+	return SD_disk_ioctl(pdrv, cmd, buff);
   /* USER CODE END IOCTL */
 }
 #endif /* _USE_IOCTL == 1 */
