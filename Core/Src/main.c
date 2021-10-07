@@ -56,11 +56,29 @@ SPI_HandleTypeDef hspi1;
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
-uint16_t value_adc[20];
+
+FATFS fs; // file system
+FIL fil; // file
+FILINFO filinfo;
+FRESULT fresult; // to store the result
+char buffer[1024]; // to store data
+
+char data[7];
+char dataStr[100] = "";
+
+UINT br, bw; // file read/write count
+
+/* capacity related variables */
+FATFS *pfs;
+DWORD fre_clust;
+uint32_t total, free_space;
+
+uint16_t value_adc[10];
 uint32_t value_dac=500;
 float adcVal=0;
 float voltage=0;
 float resistance=0;
+float storedVal=0;
 
 volatile uint8_t DACout;
 
@@ -87,21 +105,6 @@ static void MX_ADC1_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-FATFS fs; // file system
-FIL fil; // file
-FILINFO filinfo;
-FRESULT fresult; // to store the result
-char buffer[1024]; // to store data
-
-char data[7];
-char dataStr[100] = "";
-
-UINT br, bw; // file read/write count
-
-/* capacity related variables */
-FATFS *pfs;
-DWORD fre_clust;
-uint32_t total, free_space;
 
 /* to send the data to the uart */
 void send_uart(char *string)
@@ -225,7 +228,7 @@ int main(void)
 	fresult = f_write(&fil, buffer, bufsize(buffer), &bw);
 	//bw is the pointer to the counter for the number of bytes written
 
-	send_uart("Results.txt created and data is written\n");
+	//send_uart("Results.txt created and data is written\n");
 
 	/* Close file */
 	f_close(&fil);
@@ -241,7 +244,7 @@ int main(void)
 
 	f_read (&fil, buffer, filinfo.fsize, &br);
 	//br is the pointer to the count variable for the number of bytes to read from the file
-	send_uart(buffer);
+	//send_uart(buffer);
 
 	/* Close file */
 	f_close(&fil);
@@ -269,25 +272,10 @@ int main(void)
 	/* USER CODE BEGIN WHILE */
 	while (1)
 	{
-		adcVal = value_adc[0];
-		voltage = adcVal * 3.3 / 4095;
-		resistance = (voltage / 0.00001) / 30.5; //gain van +-30.5
-
-		// set the cursor to column 0, line 0
-		setCursor(0, 0);
-		// print voltage
-		sprintf(str, "%0.3f V", voltage);
-		print(str);
-		//HAL_Delay(80);
-
-		value_dac++;
-		if(value_dac>4095)
-		{
-			value_dac=0;
-		}
 		if(DACout == 1)
 		{
 			HAL_DAC_SetValue(&hdac, DAC_CHANNEL_1, DAC_ALIGN_12B_R, 2482);
+			adcVal = value_adc[0];
 		}
 		else
 		{
@@ -296,10 +284,25 @@ int main(void)
 		//  		HAL_Delay(10);
 		HAL_ADC_Start(&hadc1);
 
+		voltage = adcVal * 3.3 / 4095;
+		resistance = (voltage / 0.00001) / 30.5; //gain van +-30.5
+
+		// set the cursor to column 0, line 0
+		setCursor(0, 0);
+		// print voltage
+		sprintf(str, "%0.3f V", voltage);
+		print(str);
+
 		dataStr[0] = 0;
 
 		if(button_pressed == 1)
 		{
+			storedVal = voltage;
+			clear();
+			sprintf(str, "%0.3f V", storedVal);
+			print(str);
+			HAL_Delay(100);
+
 			/************* Updating an existing file *************/
 
 			sprintf(data, "%lu", measurement);
@@ -337,7 +340,7 @@ int main(void)
 
 			/* Read string from the file */
 			f_read(&fil, buffer, filinfo.fsize, &br);
-			send_uart(buffer);
+			//send_uart(buffer);
 
 			/* Close file */
 			f_close(&fil);
@@ -346,8 +349,6 @@ int main(void)
 
 			button_pressed = 0;
 		}
-
-
 
 		/* USER CODE END WHILE */
 
@@ -645,11 +646,11 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc1)
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-	counter_outside++; //For testing only
+	counter_outside++;
 	current_millis = HAL_GetTick();
 	if (GPIO_Pin == GPIO_PIN_13 && (current_millis - previous_millis > 10))
 	{
-		measurement++; //For testing only
+		measurement++;
 		button_pressed = 1;
 		previous_millis = current_millis;
 	}

@@ -42,7 +42,7 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-int DACCounter;
+int DACCounter = 0;
 extern volatile uint8_t DACout;
 
 /* USER CODE END PV */
