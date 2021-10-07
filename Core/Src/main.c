@@ -74,11 +74,11 @@ DWORD fre_clust;
 uint32_t total, free_space;
 
 uint16_t value_adc[10];
-uint32_t value_dac=500;
-float adcVal=0;
-float voltage=0;
-float resistance=0;
-float storedVal=0;
+uint32_t value_dac = 500;
+float adcVal = 0;
+float voltage = 0;
+float resistance = 0;
+float storedVal = 0;
 
 volatile uint8_t DACout;
 
@@ -87,7 +87,8 @@ uint32_t previous_millis = 0;
 uint32_t current_millis = 0;
 uint32_t counter_outside = 0; //For testing only
 uint32_t measurement = 0; //For testing only
-uint32_t button_pressed = 0;
+uint8_t button_pressed = 0;
+uint8_t button_state = 0;
 
 /* USER CODE END PV */
 
@@ -185,7 +186,7 @@ int main(void)
 	free_space = (uint32_t)(fre_clust * pfs->csize * 0.5);
 	sprintf(buffer, "SD CARD Free Space: \t%lu\n", free_space);
 	send_uart(buffer);
-	*/
+	 */
 
 	/************* The following operation is using PUTS and GETS *************/
 
@@ -257,6 +258,7 @@ int main(void)
 	print("POWER ON");
 	HAL_Delay(5000);
 	clear();
+	print("READY");
 
 	HAL_DAC_Start(&hdac, DAC_CHANNEL_1);
 	HAL_DAC_SetValue(&hdac, DAC_CHANNEL_1, DAC_ALIGN_12B_R, 0);
@@ -281,29 +283,35 @@ int main(void)
 		{
 			HAL_DAC_SetValue(&hdac, DAC_CHANNEL_1, DAC_ALIGN_12B_R, 0);
 		}
-		//  		HAL_Delay(10);
 		HAL_ADC_Start(&hadc1);
 
 		voltage = adcVal * 3.3 / 4095;
 		resistance = (voltage / 0.00001) / 30.5; //gain van +-30.5
 
-		// set the cursor to column 0, line 0
-		setCursor(0, 0);
-		// print voltage
-		sprintf(str, "%0.3f V", voltage);
-		print(str);
+		if(button_state == 1)
+		{
+			// set the cursor to column 0, line 0
+			setCursor(0, 0);
+			sprintf(str, "%0.3f V", voltage);
+			print(str);
+			setCursor(0, 1);
+			print("  ");
+		}
 
-		dataStr[0] = 0;
-
-		if(button_pressed == 1)
+		if(button_state == 2)
 		{
 			storedVal = voltage;
-			clear();
-			sprintf(str, "%0.3f V", storedVal);
+			setCursor(0, 0);
+			sprintf(str, "%lu:", measurement);
 			print(str);
-			HAL_Delay(100);
+			sprintf(str, "%0.3f", storedVal);
+			print(str);
+			setCursor(0, 1);
+			print(" V");
 
 			/************* Updating an existing file *************/
+
+			dataStr[0] = 0;
 
 			sprintf(data, "%lu", measurement);
 			strcat(dataStr, data);
@@ -347,7 +355,7 @@ int main(void)
 
 			bufclear();
 
-			button_pressed = 0;
+			button_state = 0;
 		}
 
 		/* USER CODE END WHILE */
@@ -650,9 +658,22 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 	current_millis = HAL_GetTick();
 	if (GPIO_Pin == GPIO_PIN_13 && (current_millis - previous_millis > 10))
 	{
-		measurement++;
 		button_pressed = 1;
 		previous_millis = current_millis;
+
+		if(button_pressed == 1 && button_state == 0)
+		{
+			button_state = 1;
+			button_pressed = 0;
+		}
+
+		if(button_pressed == 1 && button_state == 1)
+		{
+			measurement++;
+			button_state = 2;
+			button_pressed = 0;
+		}
+
 	}
 }
 
