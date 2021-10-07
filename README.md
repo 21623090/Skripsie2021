@@ -1,0 +1,3 @@
+# LCD
+
+Current SKRIPSIE project
