@@ -73,7 +73,7 @@ FATFS *pfs;
 DWORD fre_clust;
 uint32_t total, free_space;
 
-uint16_t value_adc[10];
+uint16_t value_adc[20];
 uint32_t value_dac = 500;
 float adcVal = 0;
 float voltage = 0;
@@ -85,8 +85,8 @@ volatile uint8_t DACout;
 /* Button debounce */
 uint32_t previous_millis = 0;
 uint32_t current_millis = 0;
-uint32_t counter_outside = 0; //For testing only
-uint32_t measurement = 0; //For testing only
+uint32_t counter = 0;
+uint32_t measurement = 0;
 uint8_t button_pressed = 0;
 uint8_t button_state = 0;
 
@@ -192,29 +192,20 @@ int main(void)
 
 	/* Open file to write/create a file if it doesn't exist
 	fresult = f_open(&fil, "file1.txt", FA_OPEN_ALWAYS | FA_READ | FA_WRITE);
-
 	 Writing text
 	fresult = f_puts("This data is from the First FILE\n\n", &fil);
-
 	 Close file
 	fresult = f_close(&fil);
-
 	send_uart("File1.txt created and the data is written \n");
-
 	 Open file to read
 	fresult = f_open(&fil, "file1.txt", FA_READ);
-
 	 Read file info so we can get the file size
 	fresult = f_stat("file1.txt", &filinfo);
-
 	 Read string from the file
 	f_gets(buffer, filinfo.fsize, &fil);
-
 	send_uart(buffer);
-
 	 Close file
 	f_close(&fil);
-
 	bufclear();*/
 
 
@@ -228,28 +219,20 @@ int main(void)
 
 	fresult = f_write(&fil, buffer, bufsize(buffer), &bw);
 	//bw is the pointer to the counter for the number of bytes written
-
 	//send_uart("Results.txt created and data is written\n");
-
 	/* Close file */
 	f_close(&fil);
-
 	// clearing buffer to show that result obtained is from the file
 	bufclear();
-
 	/* Open second file to read */
 	fresult = f_open(&fil, "Results.txt", FA_READ);
-
 	/* Read file info so we can get the file size */
 	fresult = f_stat("Results.txt", &filinfo);
-
 	f_read (&fil, buffer, filinfo.fsize, &br);
 	//br is the pointer to the count variable for the number of bytes to read from the file
 	//send_uart(buffer);
-
 	/* Close file */
 	f_close(&fil);
-
 	bufclear();
 
 	// initialize the library by associating any needed LCD interface pin
@@ -257,16 +240,16 @@ int main(void)
 
 	print("POWER ON");
 	HAL_Delay(5000);
-	clear();
-	print("READY");
+	setCursor(0, 0);
+	print("PRESS TO");
+	setCursor(0, 1);
+	print(" START  ");
 
 	HAL_DAC_Start(&hdac, DAC_CHANNEL_1);
 	HAL_DAC_SetValue(&hdac, DAC_CHANNEL_1, DAC_ALIGN_12B_R, 0);
-	HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&value_adc, 10);
+	HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&value_adc, 20);
 
-
-	//int i = 0;
-	char str[10]; //char*
+	char str[10];
 
 	/* USER CODE END 2 */
 
@@ -274,88 +257,82 @@ int main(void)
 	/* USER CODE BEGIN WHILE */
 	while (1)
 	{
-		if(DACout == 1)
+		while(counter >= 1)
 		{
-			HAL_DAC_SetValue(&hdac, DAC_CHANNEL_1, DAC_ALIGN_12B_R, 2482);
+			if(DACout == 1)
+			{
+				HAL_DAC_SetValue(&hdac, DAC_CHANNEL_1, DAC_ALIGN_12B_R, 2482);
+			}
+			else
+			{
+				HAL_DAC_SetValue(&hdac, DAC_CHANNEL_1, DAC_ALIGN_12B_R, 0);
+			}
+			HAL_ADC_Start(&hadc1);
+
 			adcVal = value_adc[0];
-		}
-		else
-		{
-			HAL_DAC_SetValue(&hdac, DAC_CHANNEL_1, DAC_ALIGN_12B_R, 0);
-		}
-		HAL_ADC_Start(&hadc1);
+			voltage = adcVal * 3.3 / 4095;
+			resistance = (voltage / 0.00001) / 30.5; //gain van +-30.5
 
-		voltage = adcVal * 3.3 / 4095;
-		resistance = (voltage / 0.00001) / 30.5; //gain van +-30.5
+			if(button_state == 1)
+			{
+				// set the cursor to column 0, line 0
+				setCursor(0, 0);
+				sprintf(str, "%0.3f V  ", voltage);
+				print(str);
+				setCursor(0, 1);
+				print("        ");
+			}
 
-		if(button_state == 1)
-		{
-			// set the cursor to column 0, line 0
-			setCursor(0, 0);
-			sprintf(str, "%0.3f V", voltage);
-			print(str);
-			setCursor(0, 1);
-			print("  ");
-		}
+			if(button_state == 2)
+			{
+				storedVal = voltage;
+				setCursor(0, 0);
+				sprintf(str, "%lu:", measurement);
+				print(str);
+				sprintf(str, "%0.3f", storedVal);
+				print(str);
+				setCursor(0, 1);
+				print(" V");
 
-		if(button_state == 2)
-		{
-			storedVal = voltage;
-			setCursor(0, 0);
-			sprintf(str, "%lu:", measurement);
-			print(str);
-			sprintf(str, "%0.3f", storedVal);
-			print(str);
-			setCursor(0, 1);
-			print(" V");
+				/************* Updating an existing file *************/
 
-			/************* Updating an existing file *************/
+				dataStr[0] = 0;
 
-			dataStr[0] = 0;
+				sprintf(data, "%lu", measurement);
+				strcat(dataStr, data);
+				strcat(dataStr, ", ");
 
-			sprintf(data, "%lu", measurement);
-			strcat(dataStr, data);
-			strcat(dataStr, ", ");
+				sprintf(data, "%0.3f", voltage);
+				strcat(dataStr, data);
+				strcat(dataStr, ", ");
 
-			sprintf(data, "%0.3f", voltage);
-			strcat(dataStr, data);
-			strcat(dataStr, ", ");
+				sprintf(data, "%0.3f", resistance);
+				strcat(dataStr, data);
+				strcat(dataStr, "\n");
 
-			sprintf(data, "%0.3f", resistance);
-			strcat(dataStr, data);
-			strcat(dataStr, "\n");
+				/* Open the file with write access */
+				fresult = f_open(&fil, "Results.txt", FA_OPEN_ALWAYS | FA_WRITE);
+				/* Read file info so we can get the file size */
+				fresult = f_stat("Results.txt", &filinfo);
+				/* Move to offset to the end of the file */
+				fresult = f_lseek(&fil, filinfo.fsize);
+				/* Write the string to the file */
+				fresult = f_puts(dataStr, &fil);
+				/* Close file */
+				f_close(&fil);
+				/* Open to read the file */
+				fresult = f_open(&fil, "Results.txt", FA_READ);
+				/* Read file info so we can get the file size */
+				fresult = f_stat("Results.txt", &filinfo);
+				/* Read string from the file */
+				f_read(&fil, buffer, filinfo.fsize, &br);
+				//send_uart(buffer);
+				/* Close file */
+				f_close(&fil);
+				bufclear();
 
-			/* Open the file with write access */
-			fresult = f_open(&fil, "Results.txt", FA_OPEN_ALWAYS | FA_WRITE);
-
-			/* Read file info so we can get the file size */
-			fresult = f_stat("Results.txt", &filinfo);
-
-			/* Move to offset to the end of the file */
-			fresult = f_lseek(&fil, filinfo.fsize);
-
-			/* Write the string to the file */
-			fresult = f_puts(dataStr, &fil);
-
-			/* Close file */
-			f_close(&fil);
-
-			/* Open to read the file */
-			fresult = f_open(&fil, "Results.txt", FA_READ);
-
-			/* Read file info so we can get the file size */
-			fresult = f_stat("Results.txt", &filinfo);
-
-			/* Read string from the file */
-			f_read(&fil, buffer, filinfo.fsize, &br);
-			//send_uart(buffer);
-
-			/* Close file */
-			f_close(&fil);
-
-			bufclear();
-
-			button_state = 0;
+				button_state = 0;
+			}
 		}
 
 		/* USER CODE END WHILE */
@@ -654,10 +631,10 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc1)
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-	counter_outside++;
 	current_millis = HAL_GetTick();
 	if (GPIO_Pin == GPIO_PIN_13 && (current_millis - previous_millis > 10))
 	{
+		counter++;
 		button_pressed = 1;
 		previous_millis = current_millis;
 
