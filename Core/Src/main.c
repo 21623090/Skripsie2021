@@ -305,21 +305,20 @@ int main(void)
 			{
 				// set the cursor to column 0, line 0
 				setCursor(0, 0);
-				sprintf(str, "%0.3f ", voltage);
+				sprintf(str, "%.0f     ", resistance);
 				print(str);
-				write((0));
-				print(" ");
 				setCursor(0, 1);
-				print("        ");
+				write((0));
+				print("      ");
 			}
 
 			if(button_state == 2)
 			{
-				storedVal = voltage;
+				storedVal = resistance;
 				setCursor(0, 0);
 				sprintf(str, "%lu:", measurement);
 				print(str);
-				sprintf(str, "%0.3f", storedVal);
+				sprintf(str, "%.0f", storedVal);
 				print(str);
 				setCursor(0, 1);
 				write((0));

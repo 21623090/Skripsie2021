@@ -37,11 +37,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  16 .debug_macro  00026482  00000000  00000000  0003dd50  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   0001642a  00000000  00000000  000641d2  2**0
+ 17 .debug_line   00016429  00000000  00000000  000641d2  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    000dceec  00000000  00000000  0007a5fc  2**0
+ 18 .debug_str    000dceec  00000000  00000000  0007a5fb  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  001574e8  2**0
+ 19 .comment      00000053  00000000  00000000  001574e7  2**0
                   CONTENTS, READONLY
  20 .debug_frame  000054e0  00000000  00000000  0015753c  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
@@ -4384,7 +4384,7 @@ int main(void)
 	while (1)
 	{
 		while(counter >= 1)
- 80022ca:	e16b      	b.n	80025a4 <main+0x434>
+ 80022ca:	e168      	b.n	800259e <main+0x42e>
 		{
 			//check timing van DAC op ossiloskoop vir al die button_states
 			if(DACout == 1)
@@ -4505,15 +4505,15 @@ int main(void)
  80023d4:	4b83      	ldr	r3, [pc, #524]	; (80025e4 <main+0x474>)
  80023d6:	781b      	ldrb	r3, [r3, #0]
  80023d8:	2b01      	cmp	r3, #1
- 80023da:	d11f      	bne.n	800241c <main+0x2ac>
+ 80023da:	d11c      	bne.n	8002416 <main+0x2a6>
 			{
 				// set the cursor to column 0, line 0
 				setCursor(0, 0);
  80023dc:	2100      	movs	r1, #0
  80023de:	2000      	movs	r0, #0
  80023e0:	f7ff f844 	bl	800146c <setCursor>
-				sprintf(str, "%0.3f ", voltage);
- 80023e4:	4b7c      	ldr	r3, [pc, #496]	; (80025d8 <main+0x468>)
+				sprintf(str, "%.0f     ", resistance);
+ 80023e4:	4b7e      	ldr	r3, [pc, #504]	; (80025e0 <main+0x470>)
  80023e6:	681b      	ldr	r3, [r3, #0]
  80023e8:	4618      	mov	r0, r3
  80023ea:	f7fe f8cd 	bl	8000588 <__aeabi_f2d>
@@ -4526,242 +4526,241 @@ int main(void)
  80023fa:	1d3b      	adds	r3, r7, #4
  80023fc:	4618      	mov	r0, r3
  80023fe:	f7ff f87d 	bl	80014fc <print>
-				write((0));
- 8002402:	2000      	movs	r0, #0
- 8002404:	f7ff f8dc 	bl	80015c0 <write>
-				print(" ");
- 8002408:	4878      	ldr	r0, [pc, #480]	; (80025ec <main+0x47c>)
- 800240a:	f7ff f877 	bl	80014fc <print>
 				setCursor(0, 1);
- 800240e:	2101      	movs	r1, #1
- 8002410:	2000      	movs	r0, #0
- 8002412:	f7ff f82b 	bl	800146c <setCursor>
-				print("        ");
- 8002416:	4876      	ldr	r0, [pc, #472]	; (80025f0 <main+0x480>)
- 8002418:	f7ff f870 	bl	80014fc <print>
+ 8002402:	2101      	movs	r1, #1
+ 8002404:	2000      	movs	r0, #0
+ 8002406:	f7ff f831 	bl	800146c <setCursor>
+				write((0));
+ 800240a:	2000      	movs	r0, #0
+ 800240c:	f7ff f8d8 	bl	80015c0 <write>
+				print("      ");
+ 8002410:	4876      	ldr	r0, [pc, #472]	; (80025ec <main+0x47c>)
+ 8002412:	f7ff f873 	bl	80014fc <print>
 			}
 
 			if(button_state == 2)
- 800241c:	4b71      	ldr	r3, [pc, #452]	; (80025e4 <main+0x474>)
- 800241e:	781b      	ldrb	r3, [r3, #0]
- 8002420:	2b02      	cmp	r3, #2
- 8002422:	f040 80bf 	bne.w	80025a4 <main+0x434>
+ 8002416:	4b73      	ldr	r3, [pc, #460]	; (80025e4 <main+0x474>)
+ 8002418:	781b      	ldrb	r3, [r3, #0]
+ 800241a:	2b02      	cmp	r3, #2
+ 800241c:	f040 80bf 	bne.w	800259e <main+0x42e>
 			{
-				storedVal = voltage;
- 8002426:	4b6c      	ldr	r3, [pc, #432]	; (80025d8 <main+0x468>)
- 8002428:	681b      	ldr	r3, [r3, #0]
- 800242a:	4a72      	ldr	r2, [pc, #456]	; (80025f4 <main+0x484>)
- 800242c:	6013      	str	r3, [r2, #0]
+				storedVal = resistance;
+ 8002420:	4b6f      	ldr	r3, [pc, #444]	; (80025e0 <main+0x470>)
+ 8002422:	681b      	ldr	r3, [r3, #0]
+ 8002424:	4a72      	ldr	r2, [pc, #456]	; (80025f0 <main+0x480>)
+ 8002426:	6013      	str	r3, [r2, #0]
 				setCursor(0, 0);
- 800242e:	2100      	movs	r1, #0
- 8002430:	2000      	movs	r0, #0
- 8002432:	f7ff f81b 	bl	800146c <setCursor>
+ 8002428:	2100      	movs	r1, #0
+ 800242a:	2000      	movs	r0, #0
+ 800242c:	f7ff f81e 	bl	800146c <setCursor>
 				sprintf(str, "%lu:", measurement);
- 8002436:	4b70      	ldr	r3, [pc, #448]	; (80025f8 <main+0x488>)
- 8002438:	681a      	ldr	r2, [r3, #0]
- 800243a:	1d3b      	adds	r3, r7, #4
- 800243c:	496f      	ldr	r1, [pc, #444]	; (80025fc <main+0x48c>)
- 800243e:	4618      	mov	r0, r3
- 8002440:	f007 fb32 	bl	8009aa8 <siprintf>
+ 8002430:	4b70      	ldr	r3, [pc, #448]	; (80025f4 <main+0x484>)
+ 8002432:	681a      	ldr	r2, [r3, #0]
+ 8002434:	1d3b      	adds	r3, r7, #4
+ 8002436:	4970      	ldr	r1, [pc, #448]	; (80025f8 <main+0x488>)
+ 8002438:	4618      	mov	r0, r3
+ 800243a:	f007 fb35 	bl	8009aa8 <siprintf>
 				print(str);
- 8002444:	1d3b      	adds	r3, r7, #4
- 8002446:	4618      	mov	r0, r3
- 8002448:	f7ff f858 	bl	80014fc <print>
-				sprintf(str, "%0.3f", storedVal);
- 800244c:	4b69      	ldr	r3, [pc, #420]	; (80025f4 <main+0x484>)
- 800244e:	681b      	ldr	r3, [r3, #0]
- 8002450:	4618      	mov	r0, r3
- 8002452:	f7fe f899 	bl	8000588 <__aeabi_f2d>
- 8002456:	4602      	mov	r2, r0
- 8002458:	460b      	mov	r3, r1
- 800245a:	1d38      	adds	r0, r7, #4
- 800245c:	4968      	ldr	r1, [pc, #416]	; (8002600 <main+0x490>)
- 800245e:	f007 fb23 	bl	8009aa8 <siprintf>
+ 800243e:	1d3b      	adds	r3, r7, #4
+ 8002440:	4618      	mov	r0, r3
+ 8002442:	f7ff f85b 	bl	80014fc <print>
+				sprintf(str, "%.0f", storedVal);
+ 8002446:	4b6a      	ldr	r3, [pc, #424]	; (80025f0 <main+0x480>)
+ 8002448:	681b      	ldr	r3, [r3, #0]
+ 800244a:	4618      	mov	r0, r3
+ 800244c:	f7fe f89c 	bl	8000588 <__aeabi_f2d>
+ 8002450:	4602      	mov	r2, r0
+ 8002452:	460b      	mov	r3, r1
+ 8002454:	1d38      	adds	r0, r7, #4
+ 8002456:	4969      	ldr	r1, [pc, #420]	; (80025fc <main+0x48c>)
+ 8002458:	f007 fb26 	bl	8009aa8 <siprintf>
 				print(str);
- 8002462:	1d3b      	adds	r3, r7, #4
- 8002464:	4618      	mov	r0, r3
- 8002466:	f7ff f849 	bl	80014fc <print>
+ 800245c:	1d3b      	adds	r3, r7, #4
+ 800245e:	4618      	mov	r0, r3
+ 8002460:	f7ff f84c 	bl	80014fc <print>
 				setCursor(0, 1);
- 800246a:	2101      	movs	r1, #1
- 800246c:	2000      	movs	r0, #0
- 800246e:	f7fe fffd 	bl	800146c <setCursor>
+ 8002464:	2101      	movs	r1, #1
+ 8002466:	2000      	movs	r0, #0
+ 8002468:	f7ff f800 	bl	800146c <setCursor>
 				write((0));
- 8002472:	2000      	movs	r0, #0
- 8002474:	f7ff f8a4 	bl	80015c0 <write>
+ 800246c:	2000      	movs	r0, #0
+ 800246e:	f7ff f8a7 	bl	80015c0 <write>
 
 				/************* Updating an existing file *************/
 
 				dataStr[0] = 0;
- 8002478:	4b62      	ldr	r3, [pc, #392]	; (8002604 <main+0x494>)
- 800247a:	2200      	movs	r2, #0
- 800247c:	701a      	strb	r2, [r3, #0]
+ 8002472:	4b63      	ldr	r3, [pc, #396]	; (8002600 <main+0x490>)
+ 8002474:	2200      	movs	r2, #0
+ 8002476:	701a      	strb	r2, [r3, #0]
 
 				sprintf(data, "%lu", measurement);
- 800247e:	4b5e      	ldr	r3, [pc, #376]	; (80025f8 <main+0x488>)
- 8002480:	681b      	ldr	r3, [r3, #0]
- 8002482:	461a      	mov	r2, r3
- 8002484:	4960      	ldr	r1, [pc, #384]	; (8002608 <main+0x498>)
- 8002486:	4861      	ldr	r0, [pc, #388]	; (800260c <main+0x49c>)
- 8002488:	f007 fb0e 	bl	8009aa8 <siprintf>
+ 8002478:	4b5e      	ldr	r3, [pc, #376]	; (80025f4 <main+0x484>)
+ 800247a:	681b      	ldr	r3, [r3, #0]
+ 800247c:	461a      	mov	r2, r3
+ 800247e:	4961      	ldr	r1, [pc, #388]	; (8002604 <main+0x494>)
+ 8002480:	4861      	ldr	r0, [pc, #388]	; (8002608 <main+0x498>)
+ 8002482:	f007 fb11 	bl	8009aa8 <siprintf>
 				strcat(dataStr, data);
- 800248c:	495f      	ldr	r1, [pc, #380]	; (800260c <main+0x49c>)
- 800248e:	485d      	ldr	r0, [pc, #372]	; (8002604 <main+0x494>)
- 8002490:	f007 fb2a 	bl	8009ae8 <strcat>
+ 8002486:	4960      	ldr	r1, [pc, #384]	; (8002608 <main+0x498>)
+ 8002488:	485d      	ldr	r0, [pc, #372]	; (8002600 <main+0x490>)
+ 800248a:	f007 fb2d 	bl	8009ae8 <strcat>
 				strcat(dataStr, ", ");
- 8002494:	485b      	ldr	r0, [pc, #364]	; (8002604 <main+0x494>)
- 8002496:	f7fd febb 	bl	8000210 <strlen>
- 800249a:	4603      	mov	r3, r0
- 800249c:	461a      	mov	r2, r3
- 800249e:	4b59      	ldr	r3, [pc, #356]	; (8002604 <main+0x494>)
- 80024a0:	4413      	add	r3, r2
- 80024a2:	4a5b      	ldr	r2, [pc, #364]	; (8002610 <main+0x4a0>)
- 80024a4:	8811      	ldrh	r1, [r2, #0]
- 80024a6:	7892      	ldrb	r2, [r2, #2]
- 80024a8:	8019      	strh	r1, [r3, #0]
- 80024aa:	709a      	strb	r2, [r3, #2]
+ 800248e:	485c      	ldr	r0, [pc, #368]	; (8002600 <main+0x490>)
+ 8002490:	f7fd febe 	bl	8000210 <strlen>
+ 8002494:	4603      	mov	r3, r0
+ 8002496:	461a      	mov	r2, r3
+ 8002498:	4b59      	ldr	r3, [pc, #356]	; (8002600 <main+0x490>)
+ 800249a:	4413      	add	r3, r2
+ 800249c:	4a5b      	ldr	r2, [pc, #364]	; (800260c <main+0x49c>)
+ 800249e:	8811      	ldrh	r1, [r2, #0]
+ 80024a0:	7892      	ldrb	r2, [r2, #2]
+ 80024a2:	8019      	strh	r1, [r3, #0]
+ 80024a4:	709a      	strb	r2, [r3, #2]
 
 				sprintf(data, "%0.3f", voltage);
- 80024ac:	4b4a      	ldr	r3, [pc, #296]	; (80025d8 <main+0x468>)
- 80024ae:	681b      	ldr	r3, [r3, #0]
- 80024b0:	4618      	mov	r0, r3
- 80024b2:	f7fe f869 	bl	8000588 <__aeabi_f2d>
- 80024b6:	4602      	mov	r2, r0
- 80024b8:	460b      	mov	r3, r1
- 80024ba:	4951      	ldr	r1, [pc, #324]	; (8002600 <main+0x490>)
- 80024bc:	4853      	ldr	r0, [pc, #332]	; (800260c <main+0x49c>)
- 80024be:	f007 faf3 	bl	8009aa8 <siprintf>
+ 80024a6:	4b4c      	ldr	r3, [pc, #304]	; (80025d8 <main+0x468>)
+ 80024a8:	681b      	ldr	r3, [r3, #0]
+ 80024aa:	4618      	mov	r0, r3
+ 80024ac:	f7fe f86c 	bl	8000588 <__aeabi_f2d>
+ 80024b0:	4602      	mov	r2, r0
+ 80024b2:	460b      	mov	r3, r1
+ 80024b4:	4956      	ldr	r1, [pc, #344]	; (8002610 <main+0x4a0>)
+ 80024b6:	4854      	ldr	r0, [pc, #336]	; (8002608 <main+0x498>)
+ 80024b8:	f007 faf6 	bl	8009aa8 <siprintf>
 				strcat(dataStr, data);
- 80024c2:	4952      	ldr	r1, [pc, #328]	; (800260c <main+0x49c>)
- 80024c4:	484f      	ldr	r0, [pc, #316]	; (8002604 <main+0x494>)
- 80024c6:	f007 fb0f 	bl	8009ae8 <strcat>
+ 80024bc:	4952      	ldr	r1, [pc, #328]	; (8002608 <main+0x498>)
+ 80024be:	4850      	ldr	r0, [pc, #320]	; (8002600 <main+0x490>)
+ 80024c0:	f007 fb12 	bl	8009ae8 <strcat>
 				strcat(dataStr, ", ");
- 80024ca:	484e      	ldr	r0, [pc, #312]	; (8002604 <main+0x494>)
- 80024cc:	f7fd fea0 	bl	8000210 <strlen>
- 80024d0:	4603      	mov	r3, r0
- 80024d2:	461a      	mov	r2, r3
- 80024d4:	4b4b      	ldr	r3, [pc, #300]	; (8002604 <main+0x494>)
- 80024d6:	4413      	add	r3, r2
- 80024d8:	4a4d      	ldr	r2, [pc, #308]	; (8002610 <main+0x4a0>)
- 80024da:	8811      	ldrh	r1, [r2, #0]
- 80024dc:	7892      	ldrb	r2, [r2, #2]
- 80024de:	8019      	strh	r1, [r3, #0]
- 80024e0:	709a      	strb	r2, [r3, #2]
+ 80024c4:	484e      	ldr	r0, [pc, #312]	; (8002600 <main+0x490>)
+ 80024c6:	f7fd fea3 	bl	8000210 <strlen>
+ 80024ca:	4603      	mov	r3, r0
+ 80024cc:	461a      	mov	r2, r3
+ 80024ce:	4b4c      	ldr	r3, [pc, #304]	; (8002600 <main+0x490>)
+ 80024d0:	4413      	add	r3, r2
+ 80024d2:	4a4e      	ldr	r2, [pc, #312]	; (800260c <main+0x49c>)
+ 80024d4:	8811      	ldrh	r1, [r2, #0]
+ 80024d6:	7892      	ldrb	r2, [r2, #2]
+ 80024d8:	8019      	strh	r1, [r3, #0]
+ 80024da:	709a      	strb	r2, [r3, #2]
 
 				sprintf(data, "%0.3f", resistance);
- 80024e2:	4b3f      	ldr	r3, [pc, #252]	; (80025e0 <main+0x470>)
- 80024e4:	681b      	ldr	r3, [r3, #0]
- 80024e6:	4618      	mov	r0, r3
- 80024e8:	f7fe f84e 	bl	8000588 <__aeabi_f2d>
- 80024ec:	4602      	mov	r2, r0
- 80024ee:	460b      	mov	r3, r1
- 80024f0:	4943      	ldr	r1, [pc, #268]	; (8002600 <main+0x490>)
- 80024f2:	4846      	ldr	r0, [pc, #280]	; (800260c <main+0x49c>)
- 80024f4:	f007 fad8 	bl	8009aa8 <siprintf>
+ 80024dc:	4b40      	ldr	r3, [pc, #256]	; (80025e0 <main+0x470>)
+ 80024de:	681b      	ldr	r3, [r3, #0]
+ 80024e0:	4618      	mov	r0, r3
+ 80024e2:	f7fe f851 	bl	8000588 <__aeabi_f2d>
+ 80024e6:	4602      	mov	r2, r0
+ 80024e8:	460b      	mov	r3, r1
+ 80024ea:	4949      	ldr	r1, [pc, #292]	; (8002610 <main+0x4a0>)
+ 80024ec:	4846      	ldr	r0, [pc, #280]	; (8002608 <main+0x498>)
+ 80024ee:	f007 fadb 	bl	8009aa8 <siprintf>
 				strcat(dataStr, data);
- 80024f8:	4944      	ldr	r1, [pc, #272]	; (800260c <main+0x49c>)
- 80024fa:	4842      	ldr	r0, [pc, #264]	; (8002604 <main+0x494>)
- 80024fc:	f007 faf4 	bl	8009ae8 <strcat>
+ 80024f2:	4945      	ldr	r1, [pc, #276]	; (8002608 <main+0x498>)
+ 80024f4:	4842      	ldr	r0, [pc, #264]	; (8002600 <main+0x490>)
+ 80024f6:	f007 faf7 	bl	8009ae8 <strcat>
 				strcat(dataStr, "\n");
- 8002500:	4840      	ldr	r0, [pc, #256]	; (8002604 <main+0x494>)
- 8002502:	f7fd fe85 	bl	8000210 <strlen>
- 8002506:	4603      	mov	r3, r0
- 8002508:	461a      	mov	r2, r3
- 800250a:	4b3e      	ldr	r3, [pc, #248]	; (8002604 <main+0x494>)
- 800250c:	4413      	add	r3, r2
- 800250e:	4941      	ldr	r1, [pc, #260]	; (8002614 <main+0x4a4>)
- 8002510:	461a      	mov	r2, r3
- 8002512:	460b      	mov	r3, r1
- 8002514:	881b      	ldrh	r3, [r3, #0]
- 8002516:	8013      	strh	r3, [r2, #0]
+ 80024fa:	4841      	ldr	r0, [pc, #260]	; (8002600 <main+0x490>)
+ 80024fc:	f7fd fe88 	bl	8000210 <strlen>
+ 8002500:	4603      	mov	r3, r0
+ 8002502:	461a      	mov	r2, r3
+ 8002504:	4b3e      	ldr	r3, [pc, #248]	; (8002600 <main+0x490>)
+ 8002506:	4413      	add	r3, r2
+ 8002508:	4942      	ldr	r1, [pc, #264]	; (8002614 <main+0x4a4>)
+ 800250a:	461a      	mov	r2, r3
+ 800250c:	460b      	mov	r3, r1
+ 800250e:	881b      	ldrh	r3, [r3, #0]
+ 8002510:	8013      	strh	r3, [r2, #0]
 
 				/* Open the file with write access */
 				fresult = f_open(&fil, "Results.txt", FA_OPEN_ALWAYS | FA_WRITE);
- 8002518:	2212      	movs	r2, #18
- 800251a:	493f      	ldr	r1, [pc, #252]	; (8002618 <main+0x4a8>)
- 800251c:	483f      	ldr	r0, [pc, #252]	; (800261c <main+0x4ac>)
- 800251e:	f005 fd6b 	bl	8007ff8 <f_open>
- 8002522:	4603      	mov	r3, r0
- 8002524:	461a      	mov	r2, r3
- 8002526:	4b3e      	ldr	r3, [pc, #248]	; (8002620 <main+0x4b0>)
- 8002528:	701a      	strb	r2, [r3, #0]
+ 8002512:	2212      	movs	r2, #18
+ 8002514:	4940      	ldr	r1, [pc, #256]	; (8002618 <main+0x4a8>)
+ 8002516:	4841      	ldr	r0, [pc, #260]	; (800261c <main+0x4ac>)
+ 8002518:	f005 fd6e 	bl	8007ff8 <f_open>
+ 800251c:	4603      	mov	r3, r0
+ 800251e:	461a      	mov	r2, r3
+ 8002520:	4b3f      	ldr	r3, [pc, #252]	; (8002620 <main+0x4b0>)
+ 8002522:	701a      	strb	r2, [r3, #0]
 				/* Read file info so we can get the file size */
 				fresult = f_stat("Results.txt", &filinfo);
- 800252a:	493e      	ldr	r1, [pc, #248]	; (8002624 <main+0x4b4>)
- 800252c:	483a      	ldr	r0, [pc, #232]	; (8002618 <main+0x4a8>)
- 800252e:	f006 fcee 	bl	8008f0e <f_stat>
- 8002532:	4603      	mov	r3, r0
- 8002534:	461a      	mov	r2, r3
- 8002536:	4b3a      	ldr	r3, [pc, #232]	; (8002620 <main+0x4b0>)
- 8002538:	701a      	strb	r2, [r3, #0]
+ 8002524:	493f      	ldr	r1, [pc, #252]	; (8002624 <main+0x4b4>)
+ 8002526:	483c      	ldr	r0, [pc, #240]	; (8002618 <main+0x4a8>)
+ 8002528:	f006 fcf1 	bl	8008f0e <f_stat>
+ 800252c:	4603      	mov	r3, r0
+ 800252e:	461a      	mov	r2, r3
+ 8002530:	4b3b      	ldr	r3, [pc, #236]	; (8002620 <main+0x4b0>)
+ 8002532:	701a      	strb	r2, [r3, #0]
 				/* Move to offset to the end of the file */
 				fresult = f_lseek(&fil, filinfo.fsize);
- 800253a:	4b3a      	ldr	r3, [pc, #232]	; (8002624 <main+0x4b4>)
- 800253c:	681b      	ldr	r3, [r3, #0]
- 800253e:	4619      	mov	r1, r3
- 8002540:	4836      	ldr	r0, [pc, #216]	; (800261c <main+0x4ac>)
- 8002542:	f006 fac0 	bl	8008ac6 <f_lseek>
- 8002546:	4603      	mov	r3, r0
- 8002548:	461a      	mov	r2, r3
- 800254a:	4b35      	ldr	r3, [pc, #212]	; (8002620 <main+0x4b0>)
- 800254c:	701a      	strb	r2, [r3, #0]
+ 8002534:	4b3b      	ldr	r3, [pc, #236]	; (8002624 <main+0x4b4>)
+ 8002536:	681b      	ldr	r3, [r3, #0]
+ 8002538:	4619      	mov	r1, r3
+ 800253a:	4838      	ldr	r0, [pc, #224]	; (800261c <main+0x4ac>)
+ 800253c:	f006 fac3 	bl	8008ac6 <f_lseek>
+ 8002540:	4603      	mov	r3, r0
+ 8002542:	461a      	mov	r2, r3
+ 8002544:	4b36      	ldr	r3, [pc, #216]	; (8002620 <main+0x4b0>)
+ 8002546:	701a      	strb	r2, [r3, #0]
 				/* Write the string to the file */
 				fresult = f_puts(dataStr, &fil);
- 800254e:	4933      	ldr	r1, [pc, #204]	; (800261c <main+0x4ac>)
- 8002550:	482c      	ldr	r0, [pc, #176]	; (8002604 <main+0x494>)
- 8002552:	f006 fd8c 	bl	800906e <f_puts>
- 8002556:	4603      	mov	r3, r0
- 8002558:	b2da      	uxtb	r2, r3
- 800255a:	4b31      	ldr	r3, [pc, #196]	; (8002620 <main+0x4b0>)
- 800255c:	701a      	strb	r2, [r3, #0]
+ 8002548:	4934      	ldr	r1, [pc, #208]	; (800261c <main+0x4ac>)
+ 800254a:	482d      	ldr	r0, [pc, #180]	; (8002600 <main+0x490>)
+ 800254c:	f006 fd8f 	bl	800906e <f_puts>
+ 8002550:	4603      	mov	r3, r0
+ 8002552:	b2da      	uxtb	r2, r3
+ 8002554:	4b32      	ldr	r3, [pc, #200]	; (8002620 <main+0x4b0>)
+ 8002556:	701a      	strb	r2, [r3, #0]
 				/* Close file */
 				f_close(&fil);
- 800255e:	482f      	ldr	r0, [pc, #188]	; (800261c <main+0x4ac>)
- 8002560:	f006 fa87 	bl	8008a72 <f_close>
+ 8002558:	4830      	ldr	r0, [pc, #192]	; (800261c <main+0x4ac>)
+ 800255a:	f006 fa8a 	bl	8008a72 <f_close>
 				/* Open to read the file */
 				fresult = f_open(&fil, "Results.txt", FA_READ);
- 8002564:	2201      	movs	r2, #1
- 8002566:	492c      	ldr	r1, [pc, #176]	; (8002618 <main+0x4a8>)
- 8002568:	482c      	ldr	r0, [pc, #176]	; (800261c <main+0x4ac>)
- 800256a:	f005 fd45 	bl	8007ff8 <f_open>
- 800256e:	4603      	mov	r3, r0
- 8002570:	461a      	mov	r2, r3
- 8002572:	4b2b      	ldr	r3, [pc, #172]	; (8002620 <main+0x4b0>)
- 8002574:	701a      	strb	r2, [r3, #0]
+ 800255e:	2201      	movs	r2, #1
+ 8002560:	492d      	ldr	r1, [pc, #180]	; (8002618 <main+0x4a8>)
+ 8002562:	482e      	ldr	r0, [pc, #184]	; (800261c <main+0x4ac>)
+ 8002564:	f005 fd48 	bl	8007ff8 <f_open>
+ 8002568:	4603      	mov	r3, r0
+ 800256a:	461a      	mov	r2, r3
+ 800256c:	4b2c      	ldr	r3, [pc, #176]	; (8002620 <main+0x4b0>)
+ 800256e:	701a      	strb	r2, [r3, #0]
 				/* Read file info so we can get the file size */
 				fresult = f_stat("Results.txt", &filinfo);
- 8002576:	492b      	ldr	r1, [pc, #172]	; (8002624 <main+0x4b4>)
- 8002578:	4827      	ldr	r0, [pc, #156]	; (8002618 <main+0x4a8>)
- 800257a:	f006 fcc8 	bl	8008f0e <f_stat>
- 800257e:	4603      	mov	r3, r0
- 8002580:	461a      	mov	r2, r3
- 8002582:	4b27      	ldr	r3, [pc, #156]	; (8002620 <main+0x4b0>)
- 8002584:	701a      	strb	r2, [r3, #0]
+ 8002570:	492c      	ldr	r1, [pc, #176]	; (8002624 <main+0x4b4>)
+ 8002572:	4829      	ldr	r0, [pc, #164]	; (8002618 <main+0x4a8>)
+ 8002574:	f006 fccb 	bl	8008f0e <f_stat>
+ 8002578:	4603      	mov	r3, r0
+ 800257a:	461a      	mov	r2, r3
+ 800257c:	4b28      	ldr	r3, [pc, #160]	; (8002620 <main+0x4b0>)
+ 800257e:	701a      	strb	r2, [r3, #0]
 				/* Read string from the file */
 				f_read(&fil, buffer, filinfo.fsize, &br);
- 8002586:	4b27      	ldr	r3, [pc, #156]	; (8002624 <main+0x4b4>)
- 8002588:	681a      	ldr	r2, [r3, #0]
- 800258a:	4b27      	ldr	r3, [pc, #156]	; (8002628 <main+0x4b8>)
- 800258c:	4927      	ldr	r1, [pc, #156]	; (800262c <main+0x4bc>)
- 800258e:	4823      	ldr	r0, [pc, #140]	; (800261c <main+0x4ac>)
- 8002590:	f005 fefe 	bl	8008390 <f_read>
+ 8002580:	4b28      	ldr	r3, [pc, #160]	; (8002624 <main+0x4b4>)
+ 8002582:	681a      	ldr	r2, [r3, #0]
+ 8002584:	4b28      	ldr	r3, [pc, #160]	; (8002628 <main+0x4b8>)
+ 8002586:	4929      	ldr	r1, [pc, #164]	; (800262c <main+0x4bc>)
+ 8002588:	4824      	ldr	r0, [pc, #144]	; (800261c <main+0x4ac>)
+ 800258a:	f005 ff01 	bl	8008390 <f_read>
 				//send_uart(buffer);
 				/* Close file */
 				f_close(&fil);
- 8002594:	4821      	ldr	r0, [pc, #132]	; (800261c <main+0x4ac>)
- 8002596:	f006 fa6c 	bl	8008a72 <f_close>
+ 800258e:	4823      	ldr	r0, [pc, #140]	; (800261c <main+0x4ac>)
+ 8002590:	f006 fa6f 	bl	8008a72 <f_close>
 				bufclear();
- 800259a:	f7ff fdcb 	bl	8002134 <bufclear>
+ 8002594:	f7ff fdce 	bl	8002134 <bufclear>
 
 				button_state = 0;
- 800259e:	4b11      	ldr	r3, [pc, #68]	; (80025e4 <main+0x474>)
- 80025a0:	2200      	movs	r2, #0
- 80025a2:	701a      	strb	r2, [r3, #0]
+ 8002598:	4b12      	ldr	r3, [pc, #72]	; (80025e4 <main+0x474>)
+ 800259a:	2200      	movs	r2, #0
+ 800259c:	701a      	strb	r2, [r3, #0]
 		while(counter >= 1)
- 80025a4:	4b22      	ldr	r3, [pc, #136]	; (8002630 <main+0x4c0>)
- 80025a6:	681b      	ldr	r3, [r3, #0]
- 80025a8:	2b00      	cmp	r3, #0
- 80025aa:	f47f ae8f 	bne.w	80022cc <main+0x15c>
- 80025ae:	e7f9      	b.n	80025a4 <main+0x434>
+ 800259e:	4b24      	ldr	r3, [pc, #144]	; (8002630 <main+0x4c0>)
+ 80025a0:	681b      	ldr	r3, [r3, #0]
+ 80025a2:	2b00      	cmp	r3, #0
+ 80025a4:	f47f ae92 	bne.w	80022cc <main+0x15c>
+ 80025a8:	e7f9      	b.n	800259e <main+0x42e>
+ 80025aa:	bf00      	nop
+ 80025ac:	f3af 8000 	nop.w
  80025b0:	66666666 	.word	0x66666666
  80025b4:	400a6666 	.word	0x400a6666
  80025b8:	00000000 	.word	0x00000000
@@ -4777,17 +4776,17 @@ int main(void)
  80025e0:	20000288 	.word	0x20000288
  80025e4:	200002a1 	.word	0x200002a1
  80025e8:	0800bf90 	.word	0x0800bf90
- 80025ec:	0800bf98 	.word	0x0800bf98
- 80025f0:	0800bf9c 	.word	0x0800bf9c
- 80025f4:	2000028c 	.word	0x2000028c
- 80025f8:	2000029c 	.word	0x2000029c
- 80025fc:	0800bfa8 	.word	0x0800bfa8
- 8002600:	0800bfb0 	.word	0x0800bfb0
- 8002604:	2000021c 	.word	0x2000021c
- 8002608:	0800bfb8 	.word	0x0800bfb8
- 800260c:	2000183c 	.word	0x2000183c
+ 80025ec:	0800bf9c 	.word	0x0800bf9c
+ 80025f0:	2000028c 	.word	0x2000028c
+ 80025f4:	2000029c 	.word	0x2000029c
+ 80025f8:	0800bfa4 	.word	0x0800bfa4
+ 80025fc:	0800bfac 	.word	0x0800bfac
+ 8002600:	2000021c 	.word	0x2000021c
+ 8002604:	0800bfb4 	.word	0x0800bfb4
+ 8002608:	2000183c 	.word	0x2000183c
+ 800260c:	0800bfb8 	.word	0x0800bfb8
  8002610:	0800bfbc 	.word	0x0800bfbc
- 8002614:	0800bfc0 	.word	0x0800bfc0
+ 8002614:	0800bfc4 	.word	0x0800bfc4
  8002618:	0800bf3c 	.word	0x0800bf3c
  800261c:	200018f4 	.word	0x200018f4
  8002620:	20001850 	.word	0x20001850
@@ -10758,7 +10757,7 @@ static uint32_t DMA_CalcBaseAndBitshift(DMA_HandleTypeDef *hdma)
  80045dc:	4770      	bx	lr
  80045de:	bf00      	nop
  80045e0:	aaaaaaab 	.word	0xaaaaaaab
- 80045e4:	0800c020 	.word	0x0800c020
+ 80045e4:	0800c024 	.word	0x0800c024
 
 080045e8 <DMA_CheckFifoParam>:
   * @param  hdma       pointer to a DMA_HandleTypeDef structure that contains
@@ -11849,7 +11848,7 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, ui
  8004c22:	bf00      	nop
  8004c24:	40023c00 	.word	0x40023c00
  8004c28:	40023800 	.word	0x40023800
- 8004c2c:	0800c008 	.word	0x0800c008
+ 8004c2c:	0800c00c 	.word	0x0800c00c
  8004c30:	2000000c 	.word	0x2000000c
  8004c34:	20000010 	.word	0x20000010
 
@@ -11897,7 +11896,7 @@ uint32_t HAL_RCC_GetPCLK1Freq(void)
  8004c6c:	4618      	mov	r0, r3
  8004c6e:	bd80      	pop	{r7, pc}
  8004c70:	40023800 	.word	0x40023800
- 8004c74:	0800c018 	.word	0x0800c018
+ 8004c74:	0800c01c 	.word	0x0800c01c
 
 08004c78 <HAL_RCC_GetPCLK2Freq>:
   * @note   Each time PCLK2 changes, this function must be called to update the
@@ -11923,7 +11922,7 @@ uint32_t HAL_RCC_GetPCLK2Freq(void)
  8004c94:	4618      	mov	r0, r3
  8004c96:	bd80      	pop	{r7, pc}
  8004c98:	40023800 	.word	0x40023800
- 8004c9c:	0800c018 	.word	0x0800c018
+ 8004c9c:	0800c01c 	.word	0x0800c01c
 
 08004ca0 <HAL_RCC_GetSysClockFreq>:
   *
@@ -18943,8 +18942,8 @@ FRESULT create_name (	/* FR_OK: successful, FR_INVALID_NAME: could not create */
  80077ca:	46bd      	mov	sp, r7
  80077cc:	bd80      	pop	{r7, pc}
  80077ce:	bf00      	nop
- 80077d0:	0800c028 	.word	0x0800c028
- 80077d4:	0800bfc4 	.word	0x0800bfc4
+ 80077d0:	0800c02c 	.word	0x0800c02c
+ 80077d4:	0800bfc8 	.word	0x0800bfc8
 
 080077d8 <follow_path>:
 static
@@ -23403,11 +23402,11 @@ uint8_t FATFS_LinkDriver(const Diskio_drvTypeDef *drv, char *path)
  80095ec:	e7ee      	b.n	80095cc <_printf_float+0x2b8>
  80095ee:	bf00      	nop
  80095f0:	7fefffff 	.word	0x7fefffff
- 80095f4:	0800c0ac 	.word	0x0800c0ac
- 80095f8:	0800c0b0 	.word	0x0800c0b0
- 80095fc:	0800c0b8 	.word	0x0800c0b8
- 8009600:	0800c0b4 	.word	0x0800c0b4
- 8009604:	0800c0bc 	.word	0x0800c0bc
+ 80095f4:	0800c0b0 	.word	0x0800c0b0
+ 80095f8:	0800c0b4 	.word	0x0800c0b4
+ 80095fc:	0800c0bc 	.word	0x0800c0bc
+ 8009600:	0800c0b8 	.word	0x0800c0b8
+ 8009604:	0800c0c0 	.word	0x0800c0c0
  8009608:	9a0a      	ldr	r2, [sp, #40]	; 0x28
  800960a:	6da3      	ldr	r3, [r4, #88]	; 0x58
  800960c:	429a      	cmp	r2, r3
@@ -23898,8 +23897,8 @@ uint8_t FATFS_LinkDriver(const Diskio_drvTypeDef *drv, char *path)
  8009a98:	f104 0619 	add.w	r6, r4, #25
  8009a9c:	e7f5      	b.n	8009a8a <_printf_i+0x22e>
  8009a9e:	bf00      	nop
- 8009aa0:	0800c0be 	.word	0x0800c0be
- 8009aa4:	0800c0cf 	.word	0x0800c0cf
+ 8009aa0:	0800c0c2 	.word	0x0800c0c2
+ 8009aa4:	0800c0d3 	.word	0x0800c0d3
 
 08009aa8 <siprintf>:
  8009aa8:	b40e      	push	{r1, r2, r3}
@@ -24338,15 +24337,15 @@ uint8_t FATFS_LinkDriver(const Diskio_drvTypeDef *drv, char *path)
  8009f0c:	3fc68a28 	.word	0x3fc68a28
  8009f10:	509f79fb 	.word	0x509f79fb
  8009f14:	3fd34413 	.word	0x3fd34413
- 8009f18:	0800c0ed 	.word	0x0800c0ed
- 8009f1c:	0800c104 	.word	0x0800c104
+ 8009f18:	0800c0f1 	.word	0x0800c0f1
+ 8009f1c:	0800c108 	.word	0x0800c108
  8009f20:	7ff00000 	.word	0x7ff00000
- 8009f24:	0800c0e9 	.word	0x0800c0e9
- 8009f28:	0800c0e0 	.word	0x0800c0e0
- 8009f2c:	0800c0bd 	.word	0x0800c0bd
+ 8009f24:	0800c0ed 	.word	0x0800c0ed
+ 8009f28:	0800c0e4 	.word	0x0800c0e4
+ 8009f2c:	0800c0c1 	.word	0x0800c0c1
  8009f30:	3ff80000 	.word	0x3ff80000
  8009f34:	0800c200 	.word	0x0800c200
- 8009f38:	0800c163 	.word	0x0800c163
+ 8009f38:	0800c167 	.word	0x0800c167
  8009f3c:	6a63      	ldr	r3, [r4, #36]	; 0x24
  8009f3e:	9a00      	ldr	r2, [sp, #0]
  8009f40:	601a      	str	r2, [r3, #0]
@@ -25223,9 +25222,9 @@ uint8_t FATFS_LinkDriver(const Diskio_drvTypeDef *drv, char *path)
  800a7e4:	f000 f884 	bl	800a8f0 <__multadd>
  800a7e8:	4683      	mov	fp, r0
  800a7ea:	e7eb      	b.n	800a7c4 <_dtoa_r+0xba4>
- 800a7ec:	0800c163 	.word	0x0800c163
- 800a7f0:	0800c0bc 	.word	0x0800c0bc
- 800a7f4:	0800c0e0 	.word	0x0800c0e0
+ 800a7ec:	0800c167 	.word	0x0800c167
+ 800a7f0:	0800c0c0 	.word	0x0800c0c0
+ 800a7f4:	0800c0e4 	.word	0x0800c0e4
 
 0800a7f8 <_localeconv_r>:
  800a7f8:	4800      	ldr	r0, [pc, #0]	; (800a7fc <_localeconv_r+0x4>)
@@ -25304,8 +25303,8 @@ uint8_t FATFS_LinkDriver(const Diskio_drvTypeDef *drv, char *path)
  800a89c:	e9c0 3303 	strd	r3, r3, [r0, #12]
  800a8a0:	e7f7      	b.n	800a892 <_Balloc+0x66>
  800a8a2:	bf00      	nop
- 800a8a4:	0800c0ed 	.word	0x0800c0ed
- 800a8a8:	0800c174 	.word	0x0800c174
+ 800a8a4:	0800c0f1 	.word	0x0800c0f1
+ 800a8a8:	0800c178 	.word	0x0800c178
 
 0800a8ac <_Bfree>:
  800a8ac:	b570      	push	{r4, r5, r6, lr}
@@ -25333,8 +25332,8 @@ uint8_t FATFS_LinkDriver(const Diskio_drvTypeDef *drv, char *path)
  800a8e0:	6021      	str	r1, [r4, #0]
  800a8e2:	f843 4022 	str.w	r4, [r3, r2, lsl #2]
  800a8e6:	bd70      	pop	{r4, r5, r6, pc}
- 800a8e8:	0800c0ed 	.word	0x0800c0ed
- 800a8ec:	0800c174 	.word	0x0800c174
+ 800a8e8:	0800c0f1 	.word	0x0800c0f1
+ 800a8ec:	0800c178 	.word	0x0800c178
 
 0800a8f0 <__multadd>:
  800a8f0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
@@ -25390,8 +25389,8 @@ uint8_t FATFS_LinkDriver(const Diskio_drvTypeDef *drv, char *path)
  800a974:	4620      	mov	r0, r4
  800a976:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
  800a97a:	bf00      	nop
- 800a97c:	0800c163 	.word	0x0800c163
- 800a980:	0800c174 	.word	0x0800c174
+ 800a97c:	0800c167 	.word	0x0800c167
+ 800a980:	0800c178 	.word	0x0800c178
 
 0800a984 <__hi0bits>:
  800a984:	0c03      	lsrs	r3, r0, #16
@@ -25485,8 +25484,8 @@ uint8_t FATFS_LinkDriver(const Diskio_drvTypeDef *drv, char *path)
  800aa42:	6103      	str	r3, [r0, #16]
  800aa44:	bd10      	pop	{r4, pc}
  800aa46:	bf00      	nop
- 800aa48:	0800c163 	.word	0x0800c163
- 800aa4c:	0800c174 	.word	0x0800c174
+ 800aa48:	0800c167 	.word	0x0800c167
+ 800aa4c:	0800c178 	.word	0x0800c178
 
 0800aa50 <__multiply>:
  800aa50:	e92d 4ff0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}
@@ -25606,8 +25605,8 @@ uint8_t FATFS_LinkDriver(const Diskio_drvTypeDef *drv, char *path)
  800ab8e:	3f01      	subs	r7, #1
  800ab90:	e7a1      	b.n	800aad6 <__multiply+0x86>
  800ab92:	bf00      	nop
- 800ab94:	0800c163 	.word	0x0800c163
- 800ab98:	0800c174 	.word	0x0800c174
+ 800ab94:	0800c167 	.word	0x0800c167
+ 800ab98:	0800c178 	.word	0x0800c178
 
 0800ab9c <__pow5mult>:
  800ab9c:	e92d 43f8 	stmdb	sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
@@ -25676,8 +25675,8 @@ uint8_t FATFS_LinkDriver(const Diskio_drvTypeDef *drv, char *path)
  800ac3e:	e8bd 83f8 	ldmia.w	sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
  800ac42:	bf00      	nop
  800ac44:	0800c2c8 	.word	0x0800c2c8
- 800ac48:	0800c0ed 	.word	0x0800c0ed
- 800ac4c:	0800c174 	.word	0x0800c174
+ 800ac48:	0800c0f1 	.word	0x0800c0f1
+ 800ac4c:	0800c178 	.word	0x0800c178
 
 0800ac50 <__lshift>:
  800ac50:	e92d 47f0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}
@@ -25756,8 +25755,8 @@ uint8_t FATFS_LinkDriver(const Diskio_drvTypeDef *drv, char *path)
  800ad1a:	d8f9      	bhi.n	800ad10 <__lshift+0xc0>
  800ad1c:	e7ea      	b.n	800acf4 <__lshift+0xa4>
  800ad1e:	bf00      	nop
- 800ad20:	0800c163 	.word	0x0800c163
- 800ad24:	0800c174 	.word	0x0800c174
+ 800ad20:	0800c167 	.word	0x0800c167
+ 800ad24:	0800c178 	.word	0x0800c178
 
 0800ad28 <__mcmp>:
  800ad28:	b530      	push	{r4, r5, lr}
@@ -25882,8 +25881,8 @@ uint8_t FATFS_LinkDriver(const Diskio_drvTypeDef *drv, char *path)
  800ae62:	e7e0      	b.n	800ae26 <__mdiff+0xc6>
  800ae64:	3e01      	subs	r6, #1
  800ae66:	e7ea      	b.n	800ae3e <__mdiff+0xde>
- 800ae68:	0800c163 	.word	0x0800c163
- 800ae6c:	0800c174 	.word	0x0800c174
+ 800ae68:	0800c167 	.word	0x0800c167
+ 800ae6c:	0800c178 	.word	0x0800c178
 
 0800ae70 <__d2b>:
  800ae70:	e92d 43f7 	stmdb	sp!, {r0, r1, r2, r4, r5, r6, r7, r8, r9, lr}
@@ -25952,8 +25951,8 @@ uint8_t FATFS_LinkDriver(const Diskio_drvTypeDef *drv, char *path)
  800af16:	f7ff fd35 	bl	800a984 <__hi0bits>
  800af1a:	ebc0 1042 	rsb	r0, r0, r2, lsl #5
  800af1e:	e7df      	b.n	800aee0 <__d2b+0x70>
- 800af20:	0800c163 	.word	0x0800c163
- 800af24:	0800c174 	.word	0x0800c174
+ 800af20:	0800c167 	.word	0x0800c167
+ 800af24:	0800c178 	.word	0x0800c178
 
 0800af28 <_calloc_r>:
  800af28:	b513      	push	{r0, r1, r4, lr}
@@ -27340,7 +27339,7 @@ uint8_t FATFS_LinkDriver(const Diskio_drvTypeDef *drv, char *path)
  800bb86:	61a3      	str	r3, [r4, #24]
  800bb88:	e7d2      	b.n	800bb30 <__sinit+0xc>
  800bb8a:	bf00      	nop
- 800bb8c:	0800c0a8 	.word	0x0800c0a8
+ 800bb8c:	0800c0ac 	.word	0x0800c0ac
  800bb90:	0800babd 	.word	0x0800babd
 
 0800bb94 <__sfp>:
@@ -27395,7 +27394,7 @@ uint8_t FATFS_LinkDriver(const Diskio_drvTypeDef *drv, char *path)
  800bc12:	603b      	str	r3, [r7, #0]
  800bc14:	e7ee      	b.n	800bbf4 <__sfp+0x60>
  800bc16:	bf00      	nop
- 800bc18:	0800c0a8 	.word	0x0800c0a8
+ 800bc18:	0800c0ac 	.word	0x0800c0ac
  800bc1c:	ffff0001 	.word	0xffff0001
 
 0800bc20 <_fwalk_reent>:
