@@ -312,7 +312,7 @@ inline void command(uint8_t value) {
 
 inline size_t write(uint8_t value) {
   send(value, GPIO_PIN_SET);
-  return 1; // assume sucess
+  return 1; // assume success
 }
 
 /************ low level data pushing commands **********/
