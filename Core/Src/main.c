@@ -53,9 +53,14 @@ DAC_HandleTypeDef hdac;
 
 SPI_HandleTypeDef hspi1;
 
+TIM_HandleTypeDef htim6;
+
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
+
+uint16_t values[] = {2482, 0};
+uint16_t i = 0;
 
 FATFS fs; // file system
 FIL fil; // file
@@ -73,14 +78,12 @@ FATFS *pfs;
 DWORD fre_clust;
 uint32_t total, free_space;
 
-uint16_t value_adc[10];
+uint16_t value_adc[20];
 uint32_t value_dac = 500;
 float adcVal = 0;
 float voltage = 0;
 float resistance = 0;
 float storedVal = 0;
-
-volatile uint8_t DACout;
 
 /* Button debounce */
 uint32_t previous_millis = 0;
@@ -116,12 +119,26 @@ static void MX_SPI1_Init(void);
 static void MX_DAC_Init(void);
 static void MX_DMA_Init(void);
 static void MX_ADC1_Init(void);
+static void MX_TIM6_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+	HAL_DAC_Start(&hdac, DAC_CHANNEL_1);
+	HAL_DAC_SetValue(&hdac, DAC_CHANNEL_1, DAC_ALIGN_12B_R, values[i]);
+	i++;
+	if(i>=2)
+	{
+		i = 0;
+		HAL_ADC_Start(&hadc1);
+		adcVal = value_adc[0];
+	}
+}
 
 /* to send the data to the uart */
 void send_uart(char *string)
@@ -183,7 +200,10 @@ int main(void)
   MX_DAC_Init();
   MX_DMA_Init();
   MX_ADC1_Init();
+  MX_TIM6_Init();
   /* USER CODE BEGIN 2 */
+
+  HAL_TIM_Base_Start_IT(&htim6);
 
 	/* Mount SD Card */
 	fresult = f_mount(&fs, "", 0);
@@ -265,9 +285,7 @@ int main(void)
 	setCursor(0, 1);
 	print(" START  ");
 
-	HAL_DAC_Start(&hdac, DAC_CHANNEL_1);
-	HAL_DAC_SetValue(&hdac, DAC_CHANNEL_1, DAC_ALIGN_12B_R, 0);
-	HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&value_adc, 10);
+	HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&value_adc, 20);
 
 	char str[10];
 
@@ -279,24 +297,6 @@ int main(void)
 	{
 		while(counter >= 1)
 		{
-			//check timing van DAC op ossiloskoop vir al die button_states
-			if(DACout == 1)
-			{
-				HAL_DAC_SetValue(&hdac, DAC_CHANNEL_1, DAC_ALIGN_12B_R, 2482);
-			}
-			else
-			{
-				HAL_DAC_SetValue(&hdac, DAC_CHANNEL_1, DAC_ALIGN_12B_R, 0);
-			}
-			HAL_ADC_Start(&hadc1);
-
-			adcVal = value_adc[0];
-
-			if(value_adc[0] <= 2000)
-			{
-				__NOP();
-			}
-
 
 			voltage = adcVal * 3.3 / 4095;
 			resistance = (voltage / 0.00001) / 30.5; //gain van +-30.5
@@ -492,7 +492,7 @@ static void MX_DAC_Init(void)
   }
   /** DAC channel OUT1 config
   */
-  sConfig.DAC_Trigger = DAC_TRIGGER_NONE;
+  sConfig.DAC_Trigger = DAC_TRIGGER_T6_TRGO;
   sConfig.DAC_OutputBuffer = DAC_OUTPUTBUFFER_ENABLE;
   if (HAL_DAC_ConfigChannel(&hdac, &sConfig, DAC_CHANNEL_1) != HAL_OK)
   {
@@ -539,6 +539,44 @@ static void MX_SPI1_Init(void)
   /* USER CODE BEGIN SPI1_Init 2 */
 
   /* USER CODE END SPI1_Init 2 */
+
+}
+
+/**
+  * @brief TIM6 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM6_Init(void)
+{
+
+  /* USER CODE BEGIN TIM6_Init 0 */
+
+  /* USER CODE END TIM6_Init 0 */
+
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+
+  /* USER CODE BEGIN TIM6_Init 1 */
+
+  /* USER CODE END TIM6_Init 1 */
+  htim6.Instance = TIM6;
+  htim6.Init.Prescaler = 20000;
+  htim6.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim6.Init.Period = 167;
+  htim6.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim6) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_UPDATE;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim6, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM6_Init 2 */
+
+  /* USER CODE END TIM6_Init 2 */
 
 }
 
