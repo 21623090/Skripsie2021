@@ -1,3 +1,3 @@
-# LCD
+# Skripsie code
 
 Current SKRIPSIE project
