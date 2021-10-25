@@ -6350,7 +6350,7 @@ LOAD c:/st/stm32cubeide_1.6.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
                 0x000000000800d0bc                . = ALIGN (0x4)
                 0x000000000800d0bc                _sidata = LOADADDR (.data)
 
-.data           0x0000000020000000      0x20c load address 0x000000000800d0bc
+.data           0x0000000020000000      0x208 load address 0x000000000800d0bc
                 0x0000000020000000                . = ALIGN (0x4)
                 0x0000000020000000                _sdata = .
  *(.data)
@@ -6360,173 +6360,174 @@ LOAD c:/st/stm32cubeide_1.6.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
                 0x0000000020000000                _fourbit_mode
  .data.Stat     0x0000000020000001        0x1 ./Core/Src/fatfs_sd.o
  *fill*         0x0000000020000002        0x2 
- .data.values   0x0000000020000004        0x8 ./Core/Src/main.o
+ .data.values   0x0000000020000004        0x4 ./Core/Src/main.o
                 0x0000000020000004                values
- .data.ohm      0x000000002000000c        0x8 ./Core/Src/main.o
-                0x000000002000000c                ohm
+ .data.ohm      0x0000000020000008        0x8 ./Core/Src/main.o
+                0x0000000020000008                ohm
  .data.rightarrow
-                0x0000000020000014        0x8 ./Core/Src/main.o
-                0x0000000020000014                rightarrow
+                0x0000000020000010        0x8 ./Core/Src/main.o
+                0x0000000020000010                rightarrow
  .data.SystemCoreClock
-                0x000000002000001c        0x4 ./Core/Src/system_stm32f4xx.o
-                0x000000002000001c                SystemCoreClock
+                0x0000000020000018        0x4 ./Core/Src/system_stm32f4xx.o
+                0x0000000020000018                SystemCoreClock
  .data.uwTickPrio
-                0x0000000020000020        0x4 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
-                0x0000000020000020                uwTickPrio
+                0x000000002000001c        0x4 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
+                0x000000002000001c                uwTickPrio
  .data.uwTickFreq
-                0x0000000020000024        0x1 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
-                0x0000000020000024                uwTickFreq
- *fill*         0x0000000020000025        0x3 
+                0x0000000020000020        0x1 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
+                0x0000000020000020                uwTickFreq
+ *fill*         0x0000000020000021        0x3 
  .data.USER_Driver
-                0x0000000020000028       0x14 ./FATFS/Target/user_diskio.o
-                0x0000000020000028                USER_Driver
+                0x0000000020000024       0x14 ./FATFS/Target/user_diskio.o
+                0x0000000020000024                USER_Driver
  .data._impure_ptr
-                0x000000002000003c        0x4 c:/st/stm32cubeide_1.6.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(lib_a-impure.o)
-                0x000000002000003c                _impure_ptr
+                0x0000000020000038        0x4 c:/st/stm32cubeide_1.6.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(lib_a-impure.o)
+                0x0000000020000038                _impure_ptr
  .data.impure_data
-                0x0000000020000040       0x60 c:/st/stm32cubeide_1.6.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(lib_a-impure.o)
+                0x000000002000003c       0x60 c:/st/stm32cubeide_1.6.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(lib_a-impure.o)
  .data.__global_locale
-                0x00000000200000a0      0x16c c:/st/stm32cubeide_1.6.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(lib_a-locale.o)
-                0x00000000200000a0                __global_locale
+                0x000000002000009c      0x16c c:/st/stm32cubeide_1.6.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(lib_a-locale.o)
+                0x000000002000009c                __global_locale
  *(.RamFunc)
  *(.RamFunc*)
-                0x000000002000020c                . = ALIGN (0x4)
-                0x000000002000020c                _edata = .
+                0x0000000020000208                . = ALIGN (0x4)
+                0x0000000020000208                _edata = .
 
-.igot.plt       0x000000002000020c        0x0 load address 0x000000000800d2c8
- .igot.plt      0x000000002000020c        0x0 c:/st/stm32cubeide_1.6.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/thumb/v7e-m+fp/hard/crtbegin.o
-                0x000000002000020c                . = ALIGN (0x4)
+.igot.plt       0x0000000020000208        0x0 load address 0x000000000800d2c4
+ .igot.plt      0x0000000020000208        0x0 c:/st/stm32cubeide_1.6.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/thumb/v7e-m+fp/hard/crtbegin.o
+                0x0000000020000208                . = ALIGN (0x4)
 
-.bss            0x000000002000020c     0x483c load address 0x000000000800d2c8
-                0x000000002000020c                _sbss = .
-                0x000000002000020c                __bss_start__ = _sbss
+.bss            0x0000000020000208     0x483c load address 0x000000000800d2c4
+                0x0000000020000208                _sbss = .
+                0x0000000020000208                __bss_start__ = _sbss
  *(.bss)
- .bss           0x000000002000020c       0x1c c:/st/stm32cubeide_1.6.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/thumb/v7e-m+fp/hard/crtbegin.o
+ .bss           0x0000000020000208       0x1c c:/st/stm32cubeide_1.6.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/thumb/v7e-m+fp/hard/crtbegin.o
  *(.bss*)
- .bss.dotsize   0x0000000020000228        0x1 ./Core/Src/LiquidCrystal.o
-                0x0000000020000228                dotsize
- .bss.CardType  0x0000000020000229        0x1 ./Core/Src/fatfs_sd.o
+ .bss.dotsize   0x0000000020000224        0x1 ./Core/Src/LiquidCrystal.o
+                0x0000000020000224                dotsize
+ .bss.CardType  0x0000000020000225        0x1 ./Core/Src/fatfs_sd.o
  .bss.PowerFlag
-                0x000000002000022a        0x1 ./Core/Src/fatfs_sd.o
- *fill*         0x000000002000022b        0x1 
- .bss.i         0x000000002000022c        0x2 ./Core/Src/main.o
-                0x000000002000022c                i
- *fill*         0x000000002000022e        0x2 
- .bss.dataStr   0x0000000020000230       0x64 ./Core/Src/main.o
-                0x0000000020000230                dataStr
- .bss.adcVal    0x0000000020000294        0x4 ./Core/Src/main.o
-                0x0000000020000294                adcVal
- .bss.avg       0x0000000020000298        0x4 ./Core/Src/main.o
-                0x0000000020000298                avg
- .bss.voltage   0x000000002000029c        0x4 ./Core/Src/main.o
-                0x000000002000029c                voltage
+                0x0000000020000226        0x1 ./Core/Src/fatfs_sd.o
+ *fill*         0x0000000020000227        0x1 
+ .bss.i         0x0000000020000228        0x2 ./Core/Src/main.o
+                0x0000000020000228                i
+ *fill*         0x000000002000022a        0x2 
+ .bss.dataStr   0x000000002000022c       0x64 ./Core/Src/main.o
+                0x000000002000022c                dataStr
+ .bss.adcVal    0x0000000020000290        0x4 ./Core/Src/main.o
+                0x0000000020000290                adcVal
+ .bss.avg       0x0000000020000294        0x4 ./Core/Src/main.o
+                0x0000000020000294                avg
+ .bss.voltage   0x0000000020000298        0x4 ./Core/Src/main.o
+                0x0000000020000298                voltage
  .bss.resistance
-                0x00000000200002a0        0x4 ./Core/Src/main.o
-                0x00000000200002a0                resistance
+                0x000000002000029c        0x4 ./Core/Src/main.o
+                0x000000002000029c                resistance
  .bss.storedVal
-                0x00000000200002a4        0x4 ./Core/Src/main.o
-                0x00000000200002a4                storedVal
+                0x00000000200002a0        0x4 ./Core/Src/main.o
+                0x00000000200002a0                storedVal
  .bss.previous_millis
-                0x00000000200002a8        0x4 ./Core/Src/main.o
-                0x00000000200002a8                previous_millis
+                0x00000000200002a4        0x4 ./Core/Src/main.o
+                0x00000000200002a4                previous_millis
  .bss.current_millis
-                0x00000000200002ac        0x4 ./Core/Src/main.o
-                0x00000000200002ac                current_millis
- .bss.counter   0x00000000200002b0        0x4 ./Core/Src/main.o
-                0x00000000200002b0                counter
+                0x00000000200002a8        0x4 ./Core/Src/main.o
+                0x00000000200002a8                current_millis
+ .bss.counter   0x00000000200002ac        0x4 ./Core/Src/main.o
+                0x00000000200002ac                counter
  .bss.measurement
-                0x00000000200002b4        0x4 ./Core/Src/main.o
-                0x00000000200002b4                measurement
+                0x00000000200002b0        0x4 ./Core/Src/main.o
+                0x00000000200002b0                measurement
  .bss.button_pressed
-                0x00000000200002b8        0x1 ./Core/Src/main.o
-                0x00000000200002b8                button_pressed
+                0x00000000200002b4        0x1 ./Core/Src/main.o
+                0x00000000200002b4                button_pressed
  .bss.button_state
-                0x00000000200002b9        0x1 ./Core/Src/main.o
-                0x00000000200002b9                button_state
- .bss.FatFsCnt  0x00000000200002ba        0x1 ./Core/Src/stm32f4xx_it.o
-                0x00000000200002ba                FatFsCnt
- *fill*         0x00000000200002bb        0x1 
+                0x00000000200002b5        0x1 ./Core/Src/main.o
+                0x00000000200002b5                button_state
+ .bss.FatFsCnt  0x00000000200002b6        0x1 ./Core/Src/stm32f4xx_it.o
+                0x00000000200002b6                FatFsCnt
+ *fill*         0x00000000200002b7        0x1 
  .bss.__sbrk_heap_end
-                0x00000000200002bc        0x4 ./Core/Src/sysmem.o
- .bss.FatFs     0x00000000200002c0        0x4 ./Middlewares/Third_Party/FatFs/src/ff.o
- .bss.Fsid      0x00000000200002c4        0x2 ./Middlewares/Third_Party/FatFs/src/ff.o
- *fill*         0x00000000200002c6        0x2 
- .bss.Files     0x00000000200002c8       0x20 ./Middlewares/Third_Party/FatFs/src/ff.o
- .bss.disk      0x00000000200002e8        0xc ./Middlewares/Third_Party/FatFs/src/ff_gen_drv.o
-                0x00000000200002e8                disk
+                0x00000000200002b8        0x4 ./Core/Src/sysmem.o
+ .bss.FatFs     0x00000000200002bc        0x4 ./Middlewares/Third_Party/FatFs/src/ff.o
+ .bss.Fsid      0x00000000200002c0        0x2 ./Middlewares/Third_Party/FatFs/src/ff.o
+ *fill*         0x00000000200002c2        0x2 
+ .bss.Files     0x00000000200002c4       0x20 ./Middlewares/Third_Party/FatFs/src/ff.o
+ .bss.disk      0x00000000200002e4        0xc ./Middlewares/Third_Party/FatFs/src/ff_gen_drv.o
+                0x00000000200002e4                disk
  .bss.__malloc_free_list
-                0x00000000200002f4        0x4 c:/st/stm32cubeide_1.6.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(lib_a-nano-mallocr.o)
-                0x00000000200002f4                __malloc_free_list
+                0x00000000200002f0        0x4 c:/st/stm32cubeide_1.6.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(lib_a-nano-mallocr.o)
+                0x00000000200002f0                __malloc_free_list
  .bss.__malloc_sbrk_start
-                0x00000000200002f8        0x4 c:/st/stm32cubeide_1.6.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(lib_a-nano-mallocr.o)
-                0x00000000200002f8                __malloc_sbrk_start
+                0x00000000200002f4        0x4 c:/st/stm32cubeide_1.6.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(lib_a-nano-mallocr.o)
+                0x00000000200002f4                __malloc_sbrk_start
  *(COMMON)
- COMMON         0x00000000200002fc       0x27 ./Core/Src/LiquidCrystal.o
-                0x00000000200002fc                _row_offsets
-                0x0000000020000300                _rw_pin
-                0x0000000020000304                _port
-                0x0000000020000308                _displaycontrol
-                0x0000000020000309                _numlines
-                0x000000002000030c                _data_pins
-                0x000000002000031c                _displaymode
-                0x000000002000031d                _displayfunction
-                0x000000002000031e                _enable_pin
-                0x0000000020000320                _rs_pin
-                0x0000000020000322                _initialized
- *fill*         0x0000000020000323        0x1 
- COMMON         0x0000000020000324     0x26a0 ./Core/Src/main.o
-                0x0000000020000324                fre_clust
-                0x0000000020000328                filinfo
-                0x0000000020000340                fs
-                0x0000000020001374                br
-                0x0000000020001378                hadc1
-                0x00000000200013c0                free_space
-                0x00000000200013c4                hdac
-                0x00000000200013d8                buffer
-                0x00000000200017d8                value_adc
-                0x0000000020001800                hdma_adc1
-                0x0000000020001860                calibrated_adc
-                0x0000000020001888                data
-                0x0000000020001890                htim6
-                0x00000000200018d8                bw
-                0x00000000200018dc                pfs
-                0x00000000200018e0                fresult
-                0x00000000200018e4                hspi1
-                0x000000002000193c                huart2
-                0x0000000020001980                total
-                0x0000000020001984                FileName
-                0x0000000020001994                fil
- COMMON         0x00000000200029c4        0x2 ./Core/Src/stm32f4xx_it.o
-                0x00000000200029c4                Timer2
-                0x00000000200029c5                Timer1
- *fill*         0x00000000200029c6        0x2 
- COMMON         0x00000000200029c8        0x4 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
-                0x00000000200029c8                uwTick
- COMMON         0x00000000200029cc     0x206c ./FATFS/App/fatfs.o
-                0x00000000200029cc                USERPath
-                0x00000000200029d0                retUSER
-                0x00000000200029d4                USERFile
-                0x0000000020003a04                USERFatFS
- COMMON         0x0000000020004a38        0x4 c:/st/stm32cubeide_1.6.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(lib_a-reent.o)
-                0x0000000020004a38                errno
- COMMON         0x0000000020004a3c        0x9 c:/st/stm32cubeide_1.6.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(lib_a-lock.o)
-                0x0000000020004a3c                __lock___atexit_recursive_mutex
-                0x0000000020004a3d                __lock___arc4random_mutex
-                0x0000000020004a3e                __lock___env_recursive_mutex
-                0x0000000020004a3f                __lock___sinit_recursive_mutex
-                0x0000000020004a40                __lock___malloc_recursive_mutex
-                0x0000000020004a41                __lock___at_quick_exit_mutex
-                0x0000000020004a42                __lock___dd_hash_mutex
-                0x0000000020004a43                __lock___tz_mutex
-                0x0000000020004a44                __lock___sfp_recursive_mutex
-                0x0000000020004a48                . = ALIGN (0x4)
- *fill*         0x0000000020004a45        0x3 
-                0x0000000020004a48                _ebss = .
-                0x0000000020004a48                __bss_end__ = _ebss
+ COMMON         0x00000000200002f8       0x27 ./Core/Src/LiquidCrystal.o
+                0x00000000200002f8                _row_offsets
+                0x00000000200002fc                _rw_pin
+                0x0000000020000300                _port
+                0x0000000020000304                _displaycontrol
+                0x0000000020000305                _numlines
+                0x0000000020000308                _data_pins
+                0x0000000020000318                _displaymode
+                0x0000000020000319                _displayfunction
+                0x000000002000031a                _enable_pin
+                0x000000002000031c                _rs_pin
+                0x000000002000031e                _initialized
+ *fill*         0x000000002000031f        0x1 
+ COMMON         0x0000000020000320     0x26a0 ./Core/Src/main.o
+                0x0000000020000320                fre_clust
+                0x0000000020000324                filinfo
+                0x000000002000033c                fs
+                0x0000000020001370                br
+                0x0000000020001374                hadc1
+                0x00000000200013bc                free_space
+                0x00000000200013c0                hdac
+                0x00000000200013d4                buffer
+                0x00000000200017d4                value_adc
+                0x00000000200017fc                hdma_adc1
+                0x000000002000185c                calibrated_adc
+                0x0000000020001884                data
+                0x000000002000188c                htim6
+                0x00000000200018d4                bw
+                0x00000000200018d8                pfs
+                0x00000000200018dc                fresult
+                0x00000000200018e0                hspi1
+                0x0000000020001938                huart2
+                0x000000002000197c                total
+                0x0000000020001980                FileName
+                0x0000000020001990                fil
+ COMMON         0x00000000200029c0        0x2 ./Core/Src/stm32f4xx_it.o
+                0x00000000200029c0                Timer2
+                0x00000000200029c1                Timer1
+ *fill*         0x00000000200029c2        0x2 
+ COMMON         0x00000000200029c4        0x4 ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
+                0x00000000200029c4                uwTick
+ COMMON         0x00000000200029c8     0x206c ./FATFS/App/fatfs.o
+                0x00000000200029c8                USERPath
+                0x00000000200029cc                retUSER
+                0x00000000200029d0                USERFile
+                0x0000000020003a00                USERFatFS
+ COMMON         0x0000000020004a34        0x4 c:/st/stm32cubeide_1.6.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(lib_a-reent.o)
+                0x0000000020004a34                errno
+ COMMON         0x0000000020004a38        0x9 c:/st/stm32cubeide_1.6.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(lib_a-lock.o)
+                0x0000000020004a38                __lock___atexit_recursive_mutex
+                0x0000000020004a39                __lock___arc4random_mutex
+                0x0000000020004a3a                __lock___env_recursive_mutex
+                0x0000000020004a3b                __lock___sinit_recursive_mutex
+                0x0000000020004a3c                __lock___malloc_recursive_mutex
+                0x0000000020004a3d                __lock___at_quick_exit_mutex
+                0x0000000020004a3e                __lock___dd_hash_mutex
+                0x0000000020004a3f                __lock___tz_mutex
+                0x0000000020004a40                __lock___sfp_recursive_mutex
+                0x0000000020004a44                . = ALIGN (0x4)
+ *fill*         0x0000000020004a41        0x3 
+                0x0000000020004a44                _ebss = .
+                0x0000000020004a44                __bss_end__ = _ebss
 
 ._user_heap_stack
-                0x0000000020004a48      0x600 load address 0x000000000800d2c8
+                0x0000000020004a44      0x604 load address 0x000000000800d2c4
                 0x0000000020004a48                . = ALIGN (0x8)
+ *fill*         0x0000000020004a44        0x4 
                 [!provide]                        PROVIDE (end = .)
                 0x0000000020004a48                PROVIDE (_end = .)
                 0x0000000020004c48                . = (. + _Min_Heap_Size)

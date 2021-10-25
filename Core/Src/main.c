@@ -59,7 +59,7 @@ UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
 
-uint16_t values[] = {0, 0, 2482, 2482};
+uint16_t values[] = {0, 2482};
 uint16_t i = 0;
 
 FATFS fs; // file system
@@ -226,7 +226,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	}
 
 	i++;
-	if(i>=4)
+	if(i>=2)
 	{
 		i = 0;
 		HAL_ADC_Start(&hadc1);
