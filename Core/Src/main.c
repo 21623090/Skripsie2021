@@ -59,7 +59,7 @@ UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
 
-uint16_t values[] = {0, 2482};
+uint16_t values[] = {2482, 0};
 uint16_t i = 0;
 
 FATFS fs; // file system
